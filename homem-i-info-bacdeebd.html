@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>日常查询与延伸阅读 · 爱游戏</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans SC', sans-serif;
+            background: linear-gradient(145deg, #fde9d9 0%, #f7d6ba 70%, #f2c4a0 100%);
+            min-height: 100vh;
+            padding: 1.8rem 1.2rem 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #3d2b1c;
+            line-height: 1.7;
+        }
+
+        .page-wrap {
+            max-width: 820px;
+            width: 100%;
+        }
+
+        /* 暖白卡片，柔和阴影 */
+        .card {
+            background: rgba(255, 250, 242, 0.92);
+            backdrop-filter: blur(3px);
+            border-radius: 32px;
+            padding: 2.2rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 12px 28px rgba(140, 80, 40, 0.10), 0 4px 8px rgba(90, 50, 20, 0.06);
+            border: 1px solid rgba(255, 235, 215, 0.6);
+            transition: box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 16px 36px rgba(130, 70, 30, 0.12);
+        }
+
+        /* hero 区域 */
+        .hero {
+            text-align: center;
+            padding: 2.6rem 1.5rem 2rem;
+        }
+
+        .hero h1 {
+            font-size: 2.6rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: #4e311b;
+            margin-bottom: 0.6rem;
+        }
+
+        .hero .sub {
+            font-size: 1.1rem;
+            color: #6a4c32;
+            border-top: 1px solid #e7cfb7;
+            display: inline-block;
+            padding-top: 0.8rem;
+            margin-top: 0.4rem;
+            opacity: 0.8;
+        }
+
+        .hero .sub span {
+            background: #e4d0bb;
+            padding: 0.1rem 0.6rem;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            margin: 0 0.2rem;
+        }
+
+        /* 段落细节 */
+        p {
+            margin-bottom: 1.2rem;
+            font-size: 1.02rem;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        .intro-highlight {
+            background: #faeedf;
+            padding: 0.1rem 0.8rem;
+            border-radius: 24px;
+            display: inline-block;
+            font-weight: 450;
+        }
+
+        /* 特点网格 */
+        .feature-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            margin: 1.4rem 0 0.8rem;
+        }
+
+        .feature-item {
+            flex: 1 1 200px;
+            background: #fcf3e9;
+            padding: 1.2rem 1rem 1rem;
+            border-radius: 24px;
+            border-left: 4px solid #dbaa7a;
+            box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.8);
+        }
+
+        .feature-item h3 {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #4c321f;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-item p {
+            font-size: 0.92rem;
+            color: #4f3a28;
+            margin-bottom: 0;
+        }
+
+        /* 场景卡片 */
+        .scene-item {
+            background: #fcf3e9;
+            border-radius: 24px;
+            padding: 1rem 1.4rem;
+            margin-bottom: 0.8rem;
+            border-left: 3px solid #cd9b6b;
+        }
+
+        .scene-item strong {
+            color: #4b301d;
+        }
+
+        /* 提示框 / 阐述框 */
+        .note {
+            background: #f3e4d3;
+            border-radius: 28px;
+            padding: 1.2rem 1.6rem;
+            margin: 1.6rem 0 0.8rem;
+            border: 1px solid #e2cdb5;
+            font-size: 0.96rem;
+        }
+
+        .note a {
+            color: #6b4226;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #b48c6a;
+            font-weight: 500;
+        }
+
+        .note a:hover {
+            color: #3f2818;
+            text-decoration-color: #6b4226;
+        }
+
+        /* 圆角按钮感链接（内嵌句子） */
+        .inline-link {
+            color: #6a4022;
+            text-decoration: none;
+            font-weight: 470;
+            background: #eddbc9;
+            padding: 0.05rem 0.7rem;
+            border-radius: 40px;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+
+        .inline-link:hover {
+            background: #dbbca0;
+            color: #2f1e11;
+        }
+
+        /* FAQ 摘要列表 */
+        .faq-mini {
+            margin-top: 0.8rem;
+        }
+
+        .faq-mini details {
+            margin-bottom: 0.6rem;
+            border-bottom: 1px dashed #dac2ab;
+            padding-bottom: 0.5rem;
+        }
+
+        .faq-mini summary {
+            cursor: pointer;
+            font-weight: 450;
+            color: #4a3321;
+            padding: 0.3rem 0.2rem;
+            list-style: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .faq-mini summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .faq-mini summary::before {
+            content: "▸";
+            display: inline-block;
+            margin-right: 0.6rem;
+            color: #b28158;
+            transition: transform 0.2s;
+        }
+
+        .faq-mini details[open] summary::before {
+            transform: rotate(90deg);
+        }
+
+        .faq-mini .answer {
+            padding: 0.2rem 1rem 0.6rem 1.8rem;
+            color: #4f3825;
+            font-size: 0.95rem;
+        }
+
+        /* 页脚 */
+        .footer-note {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #6d533b;
+            border-top: 1px solid #e4cfbb;
+            padding-top: 1.6rem;
+            margin-top: 1rem;
+            opacity: 0.7;
+        }
+
+        /* 响应式 */
+        @media (max-width: 520px) {
+            body {
+                padding: 1rem 0.8rem 2rem;
+            }
+            .card {
+                padding: 1.6rem 1.2rem;
+                border-radius: 24px;
+            }
+            .hero h1 {
+                font-size: 2rem;
+            }
+            .feature-item {
+                flex: 1 1 100%;
+            }
+            .note {
+                padding: 1rem 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="page-wrap">
+    <!-- hero 区: 日常查询的角度 -->
+    <div class="card hero">
+        <h1>爱游戏 · 日常参照</h1>
+        <div class="sub"><span>检索</span> <span>对照</span> <span>延伸</span></div>
+        <p style="margin-top:1.2rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+            一本可随身查阅的游戏笔记。不喧嚣，不催促，只提供安静的对比、分类和背景信息。
+            在需要回溯某个设定，或是想了解一款作品的前后脉络时，可以打开
+            <a href="https://homem-i-game.com.cn" class="inline-link">爱游戏</a>
+            慢慢翻看。
+        </p>
+    </div>
+
+    <!-- 介绍：产品式摘要 -->
+    <div class="card">
+        <h2 style="font-weight: 480; margin-bottom: 0.8rem; color: #4f341e;">它是什么，以及不是什么</h2>
+        <p>
+            <span class="intro-highlight">爱游戏</span> 是一个偏向资料整理与对照阅读的站点。
+            它既不是评测媒体，也不追逐新作首发。这里收录的内容更接近“游戏笔记”——
+            包括机制解析、版本差异、世界观梳理，以及一些跨作品的对照索引。
+        </p>
+        <p>
+            当你玩到一半忽然记不起某个术语，或者想比较两部相似作品在处理同一主题时的差异，
+            又或者只是想随便翻翻找找灵感——<a href="https://homem-i-game.com.cn" class="inline-link">爱游戏</a>
+            是一个合适的去处。没有弹窗，没有倒计时，也没有催促你“立即行动”的横幅。
+        </p>
+    </div>
+
+    <!-- 亮点：日常对照的特性 -->
+    <div class="card">
+        <h2 style="font-weight: 480; margin-bottom: 1rem; color: #4f341e;">对照与延伸的亮点</h2>
+        <div class="feature-grid">
+            <div class="feature-item">
+                <h3>并排对比</h3>
+                <p>同一机制在不同作品中的表现、相似主题的不同叙事策略——更适合横向查看。</p>
+            </div>
+            <div class="feature-item">
+                <h3>版本注记</h3>
+                <p>更新后哪些文本或平衡发生了变动？用对照方式记录，而非单纯罗列补丁号。</p>
+            </div>
+            <div class="feature-item">
+                <h3>轻索引</h3>
+                <p>按系列、世界观、设计师等维度做了简单归类，翻找时不用反复切换页面。</p>
+            </div>
+        </div>
+        <p style="margin-top: 0.8rem; font-size: 0.95rem; color: #503a28;">
+            这些内容并非百科式的全面，而是基于实际游戏过程中产生的“要是当时记下来就好了”的念头逐渐积累起来的。
+            所以它更接近一个私人图书馆的分支，只是恰好对外开放。
+        </p>
+    </div>
+
+    <!-- 使用场景：从查询和延伸阅读展开 -->
+    <div class="card">
+        <h2 style="font-weight: 480; margin-bottom: 0.8rem; color: #4f341e;">一些使用场景</h2>
+        <div class="scene-item">
+            <strong>场景一 · 中途查阅</strong>
+            <p style="margin-top: 0.3rem;">玩到某个体系复杂的作品，记不清势力关系和关键名词。打开
+                <a href="https://homem-i-game.com.cn" class="inline-link">爱游戏</a>
+                找到相应条目，快速对照，然后关掉页面继续玩。</p>
+        </div>
+        <div class="scene-item">
+            <strong>场景二 · 主题延伸</strong>
+            <p style="margin-top: 0.3rem;">刚通关一部讨论时间循环的作品，想看看还有哪些同类作品用了不同框架。
+                在主题索引里横向扫一遍，挑几款加入待玩清单。</p>
+        </div>
+        <div class="scene-item">
+            <strong>场景三 · 版本对照</strong>
+            <p style="margin-top: 0.3rem;">某款游戏推出大型更新后，社区说法纷纭。在这里看整理过的技能数值变化、关卡调整摘要，
+                形成自己的判断，而不是只看零散截图。</p>
+        </div>
+        <p style="margin-top: 0.8rem; font-size: 0.92rem; opacity: 0.75;">
+            * 以上场景基于真实使用习惯，但不代表这些内容一定覆盖你的需求。
+        </p>
+    </div>
+
+    <!-- 可信但克制的访问说明 + FAQ 摘要 -->
+    <div class="card">
+        <h2 style="font-weight: 480; margin-bottom: 0.5rem; color: #4f341e;">关于内容与访问</h2>
+        <div class="note">
+            <p style="margin-bottom: 0.6rem;">
+                <strong>不是百科，不是评测，也不是攻略站。</strong>
+                它更像一份持续维护的私人对照手册。所有内容都基于实际体验和公开资料整理，
+                不包含未经证实的传言、购买引导或时效性很强的促销信息。
+            </p>
+            <p>
+                因为是人肉维护，所以更新节奏不快，也可能有错漏。
+                如果你发现明显矛盾或过时的信息，可以通过站内反馈功能（在最下方）告知。
+                站点本身没有广告追踪，也没有注册要求——打开 <a href="https://homem-i-game.com.cn" class="inline-link">爱游戏</a>
+                就直接看到内容了。
+            </p>
+        </div>
+
+        <!-- FAQ 摘要（简短） -->
+        <div class="faq-mini">
+            <details>
+                <summary>内容偏向哪些平台或年代？</summary>
+                <div class="answer">以近十五年的单机、联机作品为主，偶尔涉及一些经典老游戏的机制再梳理。没有特定平台倾向，但确实漏掉很多掌机和手游。</div>
+            </details>
+            <details>
+                <summary>可以用站内文章做参考引用吗？</summary>
+                <div class="answer">可以，但请自行核实原始来源。毕竟这里只是整理的二手笔记，并非一手资料。引用时注明<a href="https://homem-i-game.com.cn" class="inline-link">爱游戏</a>即可。</div>
+            </details>
+            <details>
+                <summary>为什么没有“热门推荐”之类的栏目？</summary>
+                <div class="answer">设计意图就是避开排行榜和时效压力。内容按字母、系列、主题排列，不设热度排序——方便查询，而不是引导浏览。</div>
+            </details>
+        </div>
+
+        <p style="font-size: 0.9rem; margin-top: 1.2rem; color: #5a3f29; background: #f2e2d1; padding: 0.4rem 1rem; border-radius: 40px; display: inline-block;">
+            ☕ 更新不定，但一直在。
+        </p>
+    </div>
+
+    <!-- 底部 -->
+    <div class="footer-note">
+        爱游戏 · 日常对照与延伸阅读 · 版本 &beta;
+    </div>
+</div>
+</body>
+</html>
